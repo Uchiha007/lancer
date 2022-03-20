@@ -1,0 +1,48 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-toml
+    -   id: check-json
+    -   id: check-symlinks
+    -   id: check-added-large-files
+    -   id: check-byte-order-marker
+    -   id: check-case-conflict
+-   repo: local
+    hooks:
+    -   id: cargo-fmt
+        name: cargo fmt
+        entry: bash -c 'cargo fmt'
+        language: rust
+        files: \.rs$
+        always_run: true
+        pass_filenames: false
+    -   id: cargo-check
+        name: cargo check
+        entry: bash -c 'cargo check --workspace'
+        language: rust
+        files: \.rs$
+        always_run: true
+        pass_filenames: false
+    -   id: cargo-test
+        name: cargo test
+        entry: bash -c 'cargo test --workspace'
+        language: rust
+        files: \.rs$
+        always_run: true
+        pass_filenames: false
+    -   id: cargo-fix
+        name: cargo fix
+        entry: bash -c 'cargo clippy --workspace --fix --allow-staged --allow-dirty'
+        language: rust
+        files: \.rs$
+        pass_filenames: false
+    -   id: cargo-clippy
+        name: cargo clippy
+        entry: bash -c 'cargo clippy --workspace --all-targets --all-features --tests --benches -- -D warnings'
+        language: rust
+        files: \.rs$
+        pass_filenames: false
